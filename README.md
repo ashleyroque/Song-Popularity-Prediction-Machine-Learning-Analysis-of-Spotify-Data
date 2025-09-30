@@ -1,17 +1,31 @@
-
-
-Dataset: https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs
-### Collaborative Group Project 
-Introduction
+# Song Popularity Prediction: Machine Learning Analysis of Spotify Data 
+## 📜 Project Overview
 This project seeks to identify the relationship between song characteristics and metadata to develop a regression model that predicts the song's popularity. We will use the 30,000 Spotify songs dataset found on Kaggle to help provide details about songs such as genre, danceability, energy, loudness, tempo, etc. By making predictions about songs, stakeholders will make effective data-driven decisions in a competitive music industry.
-Impact
-The impact of this project highlights the potential to enhance audience engagement and market success in the music industry, which operates as both an art form and a business. By leveraging data-driven insights, stakeholders can better understand the characteristics that contribute to a song's success, such as genre, danceability, and production quality. These insights can aid in both production and marketing decisions. Additionally, the project provides guidance and support for beginner artists by offering actionable insights to improve their work. It also enhances marketing strategies by optimizing playlist creation and promotional efforts. Furthermore, integrating music analytics fosters industry advancement by blending creativity with data, revealing trends across genres, and enabling the targeting of diverse audiences in an increasingly competitive field.
-Dataset description
-The dataset for this project, titled "30,000 Spotify Songs," was obtained from Kaggle. It includes information on 30,000 tracks, covering both song characteristics and metadata. Key features include numerical data such as track popularity, danceability, energy, loudness, tempo, and duration, as well as categorical data like track name, artist, album name, release date, playlist genre, and subgenre. This dataset provides a rich mix of audio features and contextual details, making it well-suited for analyzing patterns and predicting what makes a song popular. By examining these features, we aim to build a model to identify the key factors driving a song’s success.
-Methodology
-We started by pre-processing the Spotify dataset to prepare it for analysis and modeling. Key features like danceability, energy, loudness, and tempo were selected as predictors, with track_popularity as the target variable. To ensure data quality, missing values were handled by removing incomplete records. The dataset was then split into training (80%) and testing (20%) subsets to train and evaluate the model's performance. Numerical features were standardized using StandardScaler, which normalized the data to have a mean of 0 and a standard deviation of 1. This step ensured that all features were on the same scale, preventing one feature from dominating the others. The processed data was then organized into structured variables (X_train, X_test, y_train, y_test) for efficient use in modeling.
-Linear Regression:
-We used Linear Regression as a starting point to predict track_popularity based on important features. This model assumes a straight-line relationship between the features and the target variable. After training the model on standardized data, we evaluated its performance. The Mean Squared Error (MSE) was 591.01, and the Root Mean Squared Error (RMSE) was 24.31, both indicating the model struggled to make accurate predictions. The Mean Absolute Error (MAE) was 22.32, and the R² Score was 0.037, meaning the model could only explain 3.7% of the variation in song popularity.
-Looking at feature importance, loudness (0.99) and danceability (0.97) were the strongest predictors of song popularity, showing that louder and more danceable tracks are more popular. On the other hand, energy (-0.96) had a negative impact, suggesting that overly energetic tracks might not always be favored. Tempo (0.47) had a smaller, positive influence. These results show that while some features are helpful, Linear Regression may not be the best method for this task.
+
+
+## 📌 Impact 
+This project demonstrates how data-driven insights can bridge creativity and business in the music industry. By identifying key audio features that influence song popularity, the analysis provides actionable value for:
+
+- **Artists & Producers**: Understand how elements like tempo and loudness impact audience reception, informing creative decisions while maintaining artistic integrity
+- **Marketing Teams**: Optimize playlist curation and promotional strategies by focusing on tracks with high-potential audio characteristics
+- **Industry Stakeholders**: Make evidence-based decisions in A&R, production, and market positioning through quantifiable popularity indicators
+- **Emerging Artists**: Access data-backed guidance to navigate the competitive music landscape and increase discoverability
+
+## About the data 
+Source: 30,000 Spotify Songs from Kaggle ( https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs)
+
+Overview: 30,000 tracks with comprehensive audio features and metadata, providing a robust foundation for music popularity analysis.
+
+Key Features:
+- Target Variable: track_popularity (0-100 scale)
+- Audio Characteristics: danceability, energy, loudness, tempo, duration_ms
+- Track Metadata: track_name, artist, album, release_date
+- Categorical Data: playlist_genre, playlist_subgenre
+- Suitability: The rich combination of technical audio features and contextual metadata makes this dataset ideal for identifying patterns in music popularity and building predictive models.
+
+
+
+
+
 
 
