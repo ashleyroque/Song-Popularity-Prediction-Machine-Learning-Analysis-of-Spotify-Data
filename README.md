@@ -62,9 +62,6 @@ This project utilizes a collection of nearly **30,000 songs** sourced from the S
 
 ## ⚙️ Methodology
 
-We started by pre-processing the Spotify dataset to prepare it for analysis and modeling. Key features like danceability, energy, loudness, and tempo were selected as predictors, with track_popularity as the target variable. To ensure data quality, missing values were handled by removing incomplete records. The dataset was then split into training (80%) and testing (20%) subsets to train and evaluate the model's performance. Numerical features were standardized using StandardScaler, which normalized the data to have a mean of 0 and a standard deviation of 1. This step ensured that all features were on the same scale so one feature wasn’t overshadowing another. The processed data was then organized into structured variables (X_train, X_test, y_train, y_test) for efficient use in modeling.
-
-
 ### Data Preprocessing
 - **Handled Missing Values**: Removed incomplete records
 - **Train-Test Split**: 80% training, 20% testing
@@ -80,18 +77,49 @@ We started by pre-processing the Spotify dataset to prepare it for analysis and 
 
 ## 📈 Model Analysis & Results
 
-### Linear Regression
-- **MSE**: 591.01 | **RMSE**: 24.31 | **MAE**: 22.32 | **R²**: 0.037
-- **Key Insights**:
-  - Loudness and danceability were positive predictors
-  - Energy showed a negative correlation with popularity
-  - Model explained only 3.7% of variance in popularity
+##  Linear Regression (Baseline Model)
+
+###  Model Approach
+We implemented **Linear Regression** as our baseline model to establish a performance benchmark for predicting song popularity. This model assumes a linear relationship between audio features and track popularity, providing a straightforward interpretation of feature impacts.
+
+###  Performance Evaluation
+| Metric | Score | Interpretation |
+|--------|-------|----------------|
+| **Mean Squared Error (MSE)** | 591.01 | High error indicates poor prediction accuracy |
+| **Root Mean Squared Error (RMSE)** | 24.31 | Large average prediction error |
+| **Mean Absolute Error (MAE)** | 22.32 | Substantial deviation from actual popularity scores |
+| **R² Score** | 0.037 | Explains only **3.7%** of variance in song popularity |
+
+###  Feature Impact Analysis
+The model revealed distinct relationships between audio features and popularity:
+
+| Feature | Coefficient | Impact Direction | Interpretation |
+|---------|-------------|------------------|----------------|
+| **Loudness** | 0.99 | 📈 Positive | Louder tracks tend to be more popular |
+| **Danceability** | 0.97 | 📈 Positive | More danceable songs correlate with higher popularity |
+| **Energy** | -0.96 | 📉 Negative | Higher energy tracks show lower popularity |
+| **Tempo** | 0.47 | 📈 Positive (Weak) | Moderate positive influence on popularity |
+
+###  Key Insights & Limitations
+
+**Notable Findings:**
+- **Loudness and danceability** emerged as the strongest positive predictors
+- **Energy showed unexpected negative correlation** with popularity
+- **Linear relationships are insufficient** for capturing music popularity complexity
+
+**Model Limitations:**
+- **Poor Explanatory Power**: Only 3.7% of variance explained
+- **Oversimplified Assumptions**: Linear model cannot capture complex feature interactions
+- **Limited Predictive Capability**: High error rates across all metrics
+
     
 <img width="1003" height="448" alt="Screenshot 2025-10-15 170731" src="https://github.com/user-attachments/assets/949663df-2575-4282-adb8-966d4d953834" />
 
+> **Conclusion**: While Linear Regression provided interpretable feature relationships and established a performance baseline, its limitations highlight the need for more sophisticated, non-linear modeling approaches to effectively predict song popularity.
 
 
-### Random Forest Regression
+
+## Random Forest Regression
 
 ###  Model Implementation
 Following our baseline Linear Regression model, we implemented a **Random Forest Regression** to better capture complex patterns in predicting song popularity. This ensemble method offers several advantages for our use case:
@@ -131,19 +159,56 @@ One of Random Forest's key advantages is providing clear feature importance metr
 - **Moderate Explanatory Power**: Combined features explain limited variance, suggesting missing critical factors
 - **Model Advancement**: Random Forest outperformed Linear Regression but still fell short of robust predictive capability
 
-> **Conclusion**: While Random Forest provided better performance and valuable feature insights, the limited R² score underscores the complexity of predicting musical popularity and the need for additional features beyond basic audio characteristics.
 
   <img width="1107" height="446" alt="Screenshot 2025-10-15 170554" src="https://github.com/user-attachments/assets/40cc771e-7e4a-4d19-acee-d3b56332f228" />
 
+  > **Conclusion**: While Random Forest provided better performance and valuable feature insights, the limited R² score underscores the complexity of predicting musical popularity and the need for additional features beyond basic audio characteristics.
 
-### XGBoost Regression
-- **MSE**: 550.22 | **R²**: 0.104
-- **Feature Importance (F-Score)**:
-  - Tempo: 1445
-  - Danceability: 1393
-  - Energy: 1384
-  - Loudness: 1366
+
+## XGBoost Regression
+
+###  Model Implementation
+We employed **XGBoost (Extreme Gradient Boosting)** as our advanced ensemble method to capture complex, non-linear relationships in predicting song popularity. This model builds sequential decision trees that learn from previous iterations' errors.
+
+###  Performance Evaluation
+| Metric | Score | Interpretation |
+|--------|-------|----------------|
+| **Mean Squared Error (MSE)** | 550.22 | Significant prediction error persists |
+| **R² Score** | 0.1037 | Explains only **10.37%** of variance in song popularity |
+
+###  Feature Importance Analysis
+XGBoost provides F-scores that measure how frequently and impactfully each feature is used in the model's decision-making process:
+
+| Feature | F-Score | Rank | Interpretation |
+|---------|---------|------|----------------|
+| **Tempo** | 1445 | 🥇 1st | Most influential - song speed critically impacts popularity |
+| **Danceability** | 1393 | 🥈 2nd | Strong influence - rhythmic appeal significantly matters |
+| **Energy** | 1384 | 🥉 3rd | Important factor - track intensity affects listener preference |
+| **Loudness** | 1366 | 4th | Notable contributor - volume intensity plays key role |
+
+###  Key Insights
+
+**Model Performance:**
+- **Moderate Improvement**: Outperformed Linear Regression but underperformed Random Forest
+- **Limited Explanatory Power**: 10% variance explanation indicates missing critical factors
+- **Consistent Feature Patterns**: Same four features emerged as most important across all models
+
+**Technical Advantages:**
+- **Gradient Boosting**: Sequential error correction improves learning
+- **Regularization**: Built-in mechanisms to prevent overfitting
+- **Feature Importance**: Clear metrics on feature utilization and impact
+
+**Business Implications:**
+- **Tempo Optimization**: Artists/producers should consider BPM as a key popularity factor
+- **Balanced Audio Features**: All four features show similar importance levels
+- **Predictive Limitations**: Audio characteristics alone insufficient for accurate popularity forecasting
+
+
 <img width="468" height="372" alt="Screenshot 2025-10-15 170753" src="https://github.com/user-attachments/assets/32dd928a-8ab2-48fd-9099-edd53598e614" />
+
+
+> **Conclusion**: While XGBoost provided valuable feature insights and moderate performance improvements, the low R² score reinforces that song popularity depends on factors beyond measurable audio features, requiring additional data sources for robust predictions.
+
 
 ---
 ## 📖 Storytelling & Conclusion
@@ -185,17 +250,6 @@ This project reinforced essential data science principles:
 
 > **Final Takeaway**: While audio features provide valuable insights, predicting song popularity requires a more holistic approach that combines technical data analysis with deep understanding of musical artistry and cultural trends.
 
-
-
-
-
-
-
-
-
-
-
-
 ---
 
 ## 🔗 References
@@ -205,11 +259,7 @@ This project reinforced essential data science principles:
 
 ---
 
-<div align="center">
 
-**🎧 Where Data Meets the Beat 🎶**
-
-</div>
 
 
 
